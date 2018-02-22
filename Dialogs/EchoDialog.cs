@@ -156,7 +156,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     });
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
                     string jsonx = JsonConvert.SerializeObject(replyMessage2, Formatting.Indented);
-                    System.Diagnostics.Trace.TraceInformation("replymessage2 - " + jsonx);
+                    System.Diagnostics.Trace.TraceInformation("areplymessage2 - " + jsonx);
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage2);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 4");
                     //await context.PostAsync(replyMessage);
