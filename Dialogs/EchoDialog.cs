@@ -7,6 +7,8 @@ using System.Net.Http;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
+using System.Collections.Generic;
+
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
     
@@ -35,11 +37,28 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
+                var blobRef = message.Conversation.Id + message.Timestamp.ToString();
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
                 System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup");
                 System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
-                System.Diagnostics.Trace.TraceInformation("Content - " + message.Attachments[0].Content.ToString());
 
+                blockBlob.UploadFromFile(message.Attachments[0].ContentUrl);
+                //System.Diagnostics.Trace.TraceInformation("Content - " + message.Attachments[0].Content.ToString());
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup2");
                 await context.PostAsync($"Has attachments + {message.Attachments[0].ContentType}");
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup3");
+                CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup4");
+                var replyMessage = context.MakeMessage();
+                replyMessage.Attachments = new List<Attachment>();
+                replyMessage.Attachments.Add(new Attachment()
+                {
+                    ContentUrl = blockBlob2.Uri.ToString(),
+                    ContentType = message.Attachments[0].ContentType,
+                    Name = "1.jpg"
+                });
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup5");
+                await context.PostAsync(replyMessage);
             }
 
             if (message.Text == "reset")
