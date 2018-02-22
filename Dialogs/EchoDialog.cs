@@ -41,8 +41,15 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
                 var blobRef = message.Conversation.Id + message.Timestamp.ToString();
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
-                blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
-                blockBlob.SetProperties();
+                try
+                {
+                    blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
+                    blockBlob.SetProperties();
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.TraceError(e.Message);
+                }
                 System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup: BlobRef = " + blobRef);
                 System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
 
