@@ -22,6 +22,11 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             var message = await argument;
 
+            if (message.Attachments.count > 0)
+            {
+                await context.PostAsync($"Has attachments");
+            }
+
             if (message.Text == "reset")
             {
                 PromptDialog.Confirm(

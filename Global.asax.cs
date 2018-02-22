@@ -15,12 +15,12 @@ namespace SimpleEchoBot
         protected void Application_Start()
         {
             System.Diagnostics.Trace.TraceWarning("Slow response - database01");
-            System.Diagnostics.Trace.TraceWarning(System.Environment.GetEnvironmentVariable("CosmosDBKey"));
+            //System.Diagnostics.Trace.TraceWarning(System.Environment.GetEnvironmentVariable("CosmosDBKey"));
             var docdbServiceEndpoint = new Uri(System.Environment.GetEnvironmentVariable("CosmosDBURL"));
             var docdbKey = System.Environment.GetEnvironmentVariable("CosmosDBKey");
 
-            System.Diagnostics.Trace.TraceWarning(docdbServiceEndpoint.ToString());
-            System.Diagnostics.Trace.TraceWarning(docdbKey);
+            //System.Diagnostics.Trace.TraceWarning(docdbServiceEndpoint.ToString());
+            //System.Diagnostics.Trace.TraceWarning(docdbKey);
             var store = new DocumentDbBotDataStore(docdbServiceEndpoint, docdbKey);
             //Trace.TraceError
             // Bot Storage: This is a great spot to register the private state storage for your bot. 
