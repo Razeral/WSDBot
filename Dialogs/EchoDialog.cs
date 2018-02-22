@@ -24,7 +24,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             if (message.Attachments.Count > 0)
             {
-                await context.PostAsync($"Has attachments");
+                await context.PostAsync($"Haas attachments");
             }
 
             if (message.Text == "reset")
