@@ -151,10 +151,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage2.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
-                        //ContentType = blockBlob2.Properties.ContentType,
-                        //Name = "before.jpg"
+                        ContentType = blockBlob2.Properties.ContentType,
+                        Name = "before.jpg"
                     });
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
+                    string jsonx = JsonConvert.SerializeObject(replyMessage2, Formatting.Indented);
+                    System.Diagnostics.Trace.TraceInformation("replymessage2 - " + jsonx);
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage2);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 4");
                     //await context.PostAsync(replyMessage);
