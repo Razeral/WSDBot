@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -29,9 +30,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-
-
             var message = await argument;
+
+            string json = JsonConvert.SerializeObject(message.ChannelData, Formatting.Indented);
+            System.Diagnostics.Trace.TraceInformation("CHANNELDATA - " + json);
 
             if (message.Attachments.Count > 0)
             {
