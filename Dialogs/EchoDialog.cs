@@ -105,7 +105,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                     // Use the data stored previously to create the required objects.
                     var userAccount = new ChannelAccount("454115979", "Razeral");
+                    
                     var connector = new ConnectorClient(new Uri("https://telegram.botframework.com"));
+                    MicrosoftAppCredentials.TrustServiceUrl("https://telegram.botframework.com");
+
                     var botAccount = new ChannelAccount("WSDBot1_bot", "WSDBot");
                     var conversationId = "454115979";
                     var channelId = "telegram";
