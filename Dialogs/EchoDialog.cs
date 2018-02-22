@@ -138,28 +138,28 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
-                    replyMessage = context.MakeMessage();
-                    replyMessage.From = botAccount;
-                    replyMessage.Recipient = userAccount;
-                    replyMessage.Conversation = new ConversationAccount(id: conversationId);
+                    var replyMessage2 = context.MakeMessage();
+                    replyMessage2.From = botAccount;
+                    replyMessage2.Recipient = userAccount;
+                    replyMessage2.Conversation = new ConversationAccount(id: conversationId);
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 2");
-                    replyMessage.Text = "Observation 1284";
-                    replyMessage.Attachments = new List<Attachment>();
-                    replyMessage.Attachments.Add(new Attachment()
+                    replyMessage2.Text = "Observation 1284";
+                    replyMessage2.Attachments = new List<Attachment>();
+                    replyMessage2.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
                         ContentType = blockBlob2.Properties.ContentType,
                         Name = "before.jpg"
                     });
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
-                    await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
+                    await connector.Conversations.SendToConversationAsync((Activity)replyMessage2);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 4");
                     //await context.PostAsync(replyMessage);
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Trace.TraceError(e.Message);
+                    System.Diagnostics.Trace.TraceError(e.StackTrace);
                 }
 
 
