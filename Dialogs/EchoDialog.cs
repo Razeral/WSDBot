@@ -74,6 +74,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     // Section for echoing back attachment
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
                     var replyMessage = context.MakeMessage();
+                    replyMessage.Text = "PIC";
                     replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
                     {
