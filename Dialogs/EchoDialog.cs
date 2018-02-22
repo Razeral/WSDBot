@@ -35,15 +35,18 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             string json = JsonConvert.SerializeObject(message.ChannelData, Formatting.Indented);
             System.Diagnostics.Trace.TraceInformation("CHANNELDATA - " + json);
 
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
+
+
             if (message.Attachments.Count > 0)
             {
                 System.Diagnostics.Trace.TraceInformation("In attachment path");
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
-                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
                 
-                var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
-                
+                //var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
+                var blobRef = message.From.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
+
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
                 try
                 {
@@ -87,6 +90,32 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }
                 await context.PostAsync($"Has attachments + {message.Attachments[0].ContentType}");
+            }
+
+            if (message.Text == "show")
+            {
+                CloudBlobDirectory blockBlob3 = container.GetDirectoryReference(message.From.Id);
+
+                var replyMessage = context.MakeMessage();
+                replyMessage.Attachments = new List<Attachment>();
+
+                foreach (IListBlobItem item in blockBlob3.ListBlobs())
+                {
+                    if (item.GetType() == typeof(CloudBlockBlob))
+                    {
+                        CloudBlockBlob blob = (CloudBlockBlob)item;
+                        blob.FetchAttributes();
+                        replyMessage.Attachments.Add(new Attachment()
+                        {
+                            ContentUrl = blob.Uri.AbsoluteUri,
+                            ContentType = blob.Properties.ContentType,
+                            Name = "1.jpg"
+                        });
+                        System.Diagnostics.Trace.TraceInformation("In attachment path - added item to reply");
+                        //Console.WriteLine("Block blob of length {0}: {1}", blob.Properties.Length, blob.Uri);
+                    }
+                }
+                await context.PostAsync(replyMessage);
             }
 
             if (message.Text == "reset")
