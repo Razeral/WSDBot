@@ -14,14 +14,10 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
-    
-
     [Serializable]
     public class EchoDialog : IDialog<object>
     {
         protected int count = 1;
-
-        //https://wsdbot87ce.blob.core.windows.net/wsdbotimages
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -39,15 +35,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
 
-
             if (message.Attachments.Count > 0)
             {
-                System.Diagnostics.Trace.TraceInformation("In attachment path");
+                System.Diagnostics.Trace.TraceInformation("[In attachment path]");
                 
                 //var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
                 var blobRef = message.From.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
-
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
+
                 try
                 {
                     blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
@@ -57,11 +52,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }
-                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup: BlobRef = " + blobRef);
+                System.Diagnostics.Trace.TraceInformation("[In attachment path] - after blob setup: BlobRef = " + blobRef);
                 System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
 
                 try
                 {
+                    // Get the attachment
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.Attachments[0].ContentUrl);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -69,10 +65,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     {
                         blockBlob.UploadFromStream(inputStream);
                     }
-                
-                    System.Diagnostics.Trace.TraceInformation("In attachment path - after blob upload");
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Attachment uploaded");
+
+                    // Section for echoing back attachment
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
-                    System.Diagnostics.Trace.TraceInformation("In attachment path - blockblob2URI: " + blockBlob.Uri.AbsoluteUri);
                     var replyMessage = context.MakeMessage();
                     replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
@@ -81,7 +77,6 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         ContentType = message.Attachments[0].ContentType,
                         Name = "1.jpg"
                     });
-                    System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup5");
                     await context.PostAsync(replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[Exiting Attachment Path]");
                 }
@@ -89,36 +84,34 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }
-                await context.PostAsync($"Has attachments + {message.Attachments[0].ContentType}");
             }
 
-            if (message.Text == "show")
+            if (message.Text.ToLower() == "show")
             {
-                CloudBlobDirectory blockBlob3 = container.GetDirectoryReference(message.From.Id);
+                CloudBlobDirectory blockBlob = container.GetDirectoryReference(message.From.Id);
 
                 var replyMessage = context.MakeMessage();
+                int count = 0;
                 replyMessage.Attachments = new List<Attachment>();
 
-                foreach (IListBlobItem item in blockBlob3.ListBlobs())
+                foreach (IListBlobItem item in blockBlob.ListBlobs())
                 {
                     if (item.GetType() == typeof(CloudBlockBlob))
                     {
                         CloudBlockBlob blob = (CloudBlockBlob)item;
-                        blob.FetchAttributes();
                         replyMessage.Attachments.Add(new Attachment()
                         {
                             ContentUrl = blob.Uri.AbsoluteUri,
                             ContentType = blob.Properties.ContentType,
-                            Name = "1.jpg"
+                            Name = "1" + count++.ToString() + ".jpg"
                         });
-                        System.Diagnostics.Trace.TraceInformation("In attachment path - added item to reply");
-                        //Console.WriteLine("Block blob of length {0}: {1}", blob.Properties.Length, blob.Uri);
+                        System.Diagnostics.Trace.TraceInformation("[In attachment path] - added item to reply");
                     }
                 }
                 await context.PostAsync(replyMessage);
             }
 
-            if (message.Text == "reset")
+            if (message.Text.ToLower() == "reset")
             {
                 PromptDialog.Confirm(
                     context,
