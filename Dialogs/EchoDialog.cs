@@ -136,12 +136,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
                     replyMessage = context.MakeMessage();
                     replyMessage.From = botAccount;
                     replyMessage.Recipient = userAccount;
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 2");
                     replyMessage.Text = "Observation 1284";
                     replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
@@ -150,7 +152,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         ContentType = blockBlob2.Properties.ContentType,
                         Name = "before.jpg"
                     });
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 4");
                     //await context.PostAsync(replyMessage);
                 }
                 catch (Exception e)
