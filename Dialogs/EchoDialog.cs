@@ -129,6 +129,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 await context.PostAsync($"{this.count++}: You saidd {message.Text}");
                 context.Wait(MessageReceivedAsync);
             }*/
+            context.Wait(MessageReceivedAsync);
         }
 
         public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
