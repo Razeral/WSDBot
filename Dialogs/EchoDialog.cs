@@ -46,9 +46,10 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             if (message.Attachments.Count > 0)
             {
                 System.Diagnostics.Trace.TraceInformation("[In attachment path]");
-                
+
                 //var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
-                var blobRef = message.From.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
+                //var blobRef = message.From.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
+                var blobRef = "obs/newest.jpg";
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
                 System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 1");
 
@@ -134,6 +135,18 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
+                    await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
+
+                    replyMessage = context.MakeMessage();
+                    CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
+                    replyMessage.Text = "Observation 1284";
+                    replyMessage.Attachments = new List<Attachment>();
+                    replyMessage.Attachments.Add(new Attachment()
+                    {
+                        ContentUrl = blockBlob2.Uri.AbsoluteUri,
+                        ContentType = message.Attachments[0].ContentType,
+                        Name = "before.jpg"
+                    });
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     //await context.PostAsync(replyMessage);
                 }
