@@ -134,7 +134,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
-                    await connector.Conversations.SendToConversationAsync((Activity)message);
+                    await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     //await context.PostAsync(replyMessage);
                 }
                 catch (Exception e)
