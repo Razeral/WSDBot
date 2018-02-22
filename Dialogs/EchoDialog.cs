@@ -99,12 +99,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }*/
             }
 
-            /*if (message.Text.ToLower() == "ping")
+            if (message.Text.ToLower() == "ping")
             {
                 // Use the data stored previously to create the required objects.
                 var userAccount = new ChannelAccount("454115979", "Razeral");
-                var connector = new ConnectorClient(new Uri(serviceUrl));
-                var botAccount = new ChannelAccount("WSDBot1_bot");
+                var connector = new ConnectorClient(new Uri("https://telegram.botframework.com"));
+                var botAccount = new ChannelAccount("WSDBot1_bot", "WSDBot");
                 var conversationId = "454115979";
                 var channelId = "telegram";
 
@@ -130,8 +130,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 replyMessage.Text = "Hello, this is a notification";
                 replyMessage.Locale = "en-us";
                 await connector.Conversations.SendToConversationAsync((Activity)message);
-                await context.PostAsync(replyMessage);
-            }*/
+                //await context.PostAsync(replyMessage);
+            }
 
             if (message.Text.ToLower() == "show")
             {
