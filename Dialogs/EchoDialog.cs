@@ -137,12 +137,6 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
-                    replyMessage.Attachments.Add(new Attachment()
-                    {
-                        ContentUrl = blockBlob2.Uri.AbsoluteUri,
-                        ContentType = blockBlob2.Properties.ContentType,
-                        Name = "before.jpg"
-                    });
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
@@ -157,8 +151,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage2.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
-                        ContentType = blockBlob2.Properties.ContentType,
-                        Name = "before.jpg"
+                        //ContentType = blockBlob2.Properties.ContentType,
+                        //Name = "before.jpg"
                     });
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage2);
