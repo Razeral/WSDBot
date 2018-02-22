@@ -35,7 +35,7 @@ namespace Microsoft.Bot.Sample.FormBot
                 {
                     case ActivityTypes.Message:
                         Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
-                        Conversation.ReplyToActivityAsync(reply);
+                        //Conversation.ReplyToActivityAsync(reply);
                         //await Conversation.SendAsync(activity, MakeRootDialog);
                         break;
 
