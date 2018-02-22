@@ -41,7 +41,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
                 var blobRef = message.Conversation.Id + message.Timestamp.ToString();
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
-                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup");
+                blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
+                blockBlob.SetProperties();
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup: BlobRef = " + blobRef);
                 System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
 
                 try
@@ -54,9 +56,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         blockBlob.UploadFromStream(inputStream);
                     }
                 
-                    System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup3");
+                    System.Diagnostics.Trace.TraceInformation("In attachment path - after blob upload");
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
-                    System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup4");
+                    System.Diagnostics.Trace.TraceInformation("In attachment path - blockblob2URI: " + blockBlob.Uri.AbsoluteUri);
                     var replyMessage = context.MakeMessage();
                     replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
@@ -67,6 +69,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     });
                     System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup5");
                     await context.PostAsync(replyMessage);
+                    System.Diagnostics.Trace.TraceInformation("[Exiting Attachment Path]");
                 }
                 catch (Exception e)
                 {
