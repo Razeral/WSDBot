@@ -36,6 +36,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
                 System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup");
+                System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
+                System.Diagnostics.Trace.TraceInformation("Content - " + message.Attachments[0].Content.ToString());
+
                 await context.PostAsync($"Has attachments + {message.Attachments[0].ContentType}");
             }
 
