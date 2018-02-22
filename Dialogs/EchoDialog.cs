@@ -42,14 +42,18 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 //var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
                 var blobRef = message.From.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
+                System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 1");
 
                 try
                 {
                     blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 2");
                     blockBlob.SetProperties();
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 3");
                 }
                 catch (Exception e)
                 {
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 4 (In Exception)");
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }
                 System.Diagnostics.Trace.TraceInformation("[In attachment path] - after blob setup: BlobRef = " + blobRef);
