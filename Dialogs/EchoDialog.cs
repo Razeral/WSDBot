@@ -91,7 +91,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudBlobDirectory blockBlob = container.GetDirectoryReference(message.From.Id);
 
                 var replyMessage = context.MakeMessage();
-                int count = 0;
+                int countx = 0;
                 replyMessage.Attachments = new List<Attachment>();
 
                 foreach (IListBlobItem item in blockBlob.ListBlobs())
@@ -103,7 +103,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         {
                             ContentUrl = blob.Uri.AbsoluteUri,
                             ContentType = blob.Properties.ContentType,
-                            Name = "1" + count++.ToString() + ".jpg"
+                            Name = "1" + countx++.ToString() + ".jpg"
                         });
                         System.Diagnostics.Trace.TraceInformation("[In attachment path] - added item to reply");
                     }
