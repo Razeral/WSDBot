@@ -39,7 +39,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
-                var blobRef = message.Conversation.Id + message.Timestamp.ToString();
+                
+                var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
+                
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobRef);
                 try
                 {
