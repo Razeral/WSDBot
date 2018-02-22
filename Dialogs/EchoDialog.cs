@@ -50,6 +50,16 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 2");
                     //blockBlob.SetProperties();
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 3");
+
+                    // Get the attachment
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.Attachments[0].ContentUrl);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                    using (Stream inputStream = response.GetResponseStream())
+                    {
+                        blockBlob.UploadFromStream(inputStream);
+                    }
+                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Attachment uploaded");
                 }
                 catch (Exception e)
                 {
@@ -61,16 +71,6 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
                 try
                 {
-                    // Get the attachment
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.Attachments[0].ContentUrl);
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    using (Stream inputStream = response.GetResponseStream())
-                    {
-                        blockBlob.UploadFromStream(inputStream);
-                    }
-                    System.Diagnostics.Trace.TraceInformation("[In attachment path] - Attachment uploaded");
-
                     // Section for echoing back attachment
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
                     var replyMessage = context.MakeMessage();
@@ -124,11 +124,11 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     "Didn't get that!",
                     promptStyle: PromptStyle.Auto);
             }
-            else
+            /*else
             {
                 await context.PostAsync($"{this.count++}: You saidd {message.Text}");
                 context.Wait(MessageReceivedAsync);
-            }
+            }*/
         }
 
         public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
