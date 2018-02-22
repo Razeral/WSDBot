@@ -138,6 +138,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
 
                     replyMessage = context.MakeMessage();
+                    replyMessage.From = botAccount;
+                    replyMessage.Recipient = userAccount;
+                    replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
                     replyMessage.Text = "Observation 1284";
                     replyMessage.Attachments = new List<Attachment>();
