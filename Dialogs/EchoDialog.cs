@@ -30,6 +30,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             string json = JsonConvert.SerializeObject(message.ChannelData, Formatting.Indented);
             System.Diagnostics.Trace.TraceInformation("CHANNELDATA - " + json);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - " + message.ServiceUrl);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - toId - " + message.From.Id);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - toName - " + message.From.Name);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - fromId - " + message.Recipient.Id);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - fromName - " + message.Recipient.Name);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - serviceUrl - " + message.ServiceUrl);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - channelId - " + message.ChannelId);
+            System.Diagnostics.Trace.TraceInformation("SERVICEURI - conversationId - " + message.Conversation.Id);
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -90,6 +98,40 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }*/
             }
+
+            /*if (message.Text.ToLower() == "ping")
+            {
+                // Use the data stored previously to create the required objects.
+                var userAccount = new ChannelAccount("454115979", "Razeral");
+                var connector = new ConnectorClient(new Uri(serviceUrl));
+                var botAccount = new ChannelAccount("WSDBot1_bot");
+                var conversationId = "454115979";
+                var channelId = "telegram";
+
+                // Create a new message.
+                var replyMessage = context.MakeMessage();
+                //IMessageActivity message = Activity.CreateMessageActivity();
+                if (!string.IsNullOrEmpty(conversationId) && !string.IsNullOrEmpty(channelId))
+                {
+                    // If conversation ID and channel ID was stored previously, use it.
+                    replyMessage.ChannelId = channelId;
+                }
+                else
+                {
+                    // Conversation ID was not stored previously, so create a conversation. 
+                    // Note: If the user has an existing conversation in a channel, this will likely create a new conversation window.
+                    conversationId = (await connector.Conversations.CreateDirectConversationAsync(botAccount, userAccount)).Id;
+                }
+
+                // Set the address-related properties in the message and send the message.
+                replyMessage.From = botAccount;
+                replyMessage.Recipient = userAccount;
+                replyMessage.Conversation = new ConversationAccount(id: conversationId);
+                replyMessage.Text = "Hello, this is a notification";
+                replyMessage.Locale = "en-us";
+                await connector.Conversations.SendToConversationAsync((Activity)message);
+                await context.PostAsync(replyMessage);
+            }*/
 
             if (message.Text.ToLower() == "show")
             {
