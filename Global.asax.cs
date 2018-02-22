@@ -18,7 +18,7 @@ namespace SimpleEchoBot
             var docdbServiceEndpoint = new Uri(System.Environment.GetEnvironmentVariable("CosmosDBURL"));
             var docdbKey = System.Environment.GetEnvironmentVariable("CosmosDBKey");
 
-            System.Diagnostics.Trace.TraceWarning(docdbServiceEndpoint);
+            System.Diagnostics.Trace.TraceWarning(docdbServiceEndpoint.ToString());
             System.Diagnostics.Trace.TraceWarning(docdbKey);
             var store = new DocumentDbBotDataStore(docdbServiceEndpoint, docdbKey);
             //Trace.TraceError
