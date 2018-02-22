@@ -68,7 +68,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }
                 System.Diagnostics.Trace.TraceInformation("[In attachment path] - after blob setup: BlobRef = " + blobRef);
                 System.Diagnostics.Trace.TraceInformation("ContentURL - " + message.Attachments[0].ContentUrl);
-
+                /*
                 try
                 {
                     // Section for echoing back attachment
@@ -88,7 +88,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 catch (Exception e)
                 {
                     System.Diagnostics.Trace.TraceError(e.Message);
-                }
+                }*/
             }
 
             if (message.Text.ToLower() == "show")
