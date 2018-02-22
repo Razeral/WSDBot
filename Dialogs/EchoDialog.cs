@@ -144,7 +144,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
-                        ContentType = message.Attachments[0].ContentType,
+                        ContentType = blockBlob2.Properties.ContentType,
                         Name = "before.jpg"
                     });
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
