@@ -17,8 +17,6 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         protected int count = 1;
 
         //https://wsdbot87ce.blob.core.windows.net/wsdbotimages
-        //DefaultEndpointsProtocol=https;AccountName=wsdbot87ce;AccountKey=GBZqlXnJHJHyjGVQ67sTEQWYzQe8XyxlgOmaJqGAugSlFXzaJTBM/VGD6asx7ismGFB1MoeZMLlB2GNv9D4BGw==;EndpointSuffix=core.windows.net
-        //DefaultEndpointsProtocol=https;AccountName=wsdbot87ce;AccountKey=GBZqlXnJHJHyjGVQ67sTEQWYzQe8XyxlgOmaJqGAugSlFXzaJTBM/VGD6asx7ismGFB1MoeZMLlB2GNv9D4BGw==;
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -33,10 +31,11 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             if (message.Attachments.Count > 0)
             {
+                System.Diagnostics.Trace.TraceInformation("In attachment path");
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(System.Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString"));
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(System.Environment.GetEnvironmentVariable("AzureBlobStorageContainerReference"));
-
+                System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup");
                 await context.PostAsync($"Has attachments + {message.Attachments[0].ContentType}");
             }
 
