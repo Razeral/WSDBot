@@ -8,6 +8,8 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
 using System.Collections.Generic;
+using System.Net;
+using System.IO;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -44,7 +46,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
                 try
                 {
-                    blockBlob.UploadFromFile(message.Attachments[0].ContentUrl);                   
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(message.Attachments[0].ContentUrl);
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                    using (Stream inputStream = response.GetResponseStream())
+                    {
+                        blockBlob.UploadFromStream(inputStream);
+                    }
+                
                     System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup3");
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
                     System.Diagnostics.Trace.TraceInformation("In attachment path - after blob setup4");
@@ -52,7 +61,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
                     {
-                        ContentUrl = blockBlob2.Uri.ToString(),
+                        ContentUrl = blockBlob2.Uri.AbsoluteUri,
                         ContentType = message.Attachments[0].ContentType,
                         Name = "1.jpg"
                     });
