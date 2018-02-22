@@ -15,7 +15,7 @@ namespace SimpleEchoBot
         {
             var docdbServiceEndpoint = new Uri(System.Environment.GetEnvironmentVariable("CosmosDBURL"));
             var docdbKey = System.Environment.GetEnvironmentVariable("CosmosDBKey");
-            var store = DocumentDbBotDataStore(docdbServiceEndpoint, docdbKey);
+            var store = new DocumentDbBotDataStore(docdbServiceEndpoint, docdbKey);
             // Bot Storage: This is a great spot to register the private state storage for your bot. 
             // We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
             // For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
