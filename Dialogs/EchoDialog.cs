@@ -48,7 +48,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                     blockBlob.Properties.ContentType = message.Attachments[0].ContentType;
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 2");
-                    blockBlob.SetProperties();
+                    //blockBlob.SetProperties();
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Error Check 3");
                 }
                 catch (Exception e)
