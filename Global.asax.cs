@@ -14,9 +14,11 @@ namespace SimpleEchoBot
     {
         protected void Application_Start()
         {
+            System.Diagnostics.Trace.TraceWarning("Slow response - database01");
             var docdbServiceEndpoint = new Uri(System.Environment.GetEnvironmentVariable("CosmosDBURL"));
             var docdbKey = System.Environment.GetEnvironmentVariable("CosmosDBKey");
             var store = new DocumentDbBotDataStore(docdbServiceEndpoint, docdbKey);
+            //Trace.TraceError
             // Bot Storage: This is a great spot to register the private state storage for your bot. 
             // We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
             // For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
