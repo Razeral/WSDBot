@@ -129,12 +129,20 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         conversationId = (await connector.Conversations.CreateDirectConversationAsync(botAccount, userAccount)).Id;
                     }
 
+                    CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
+
                     // Set the address-related properties in the message and send the message.
                     replyMessage.From = botAccount;
                     replyMessage.Recipient = userAccount;
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
+                    replyMessage.Attachments.Add(new Attachment()
+                    {
+                        ContentUrl = blockBlob2.Uri.AbsoluteUri,
+                        ContentType = blockBlob2.Properties.ContentType,
+                        Name = "before.jpg"
+                    });
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
@@ -142,7 +150,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage2.From = botAccount;
                     replyMessage2.Recipient = userAccount;
                     replyMessage2.Conversation = new ConversationAccount(id: conversationId);
-                    CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
+                    
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 2");
                     replyMessage2.Text = "Observation 1284";
                     replyMessage2.Attachments = new List<Attachment>();
