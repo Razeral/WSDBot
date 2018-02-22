@@ -22,7 +22,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             var message = await argument;
 
-            if (message.Attachments.count > 0)
+            if (message.Attachments.Count > 0)
             {
                 await context.PostAsync($"Has attachments");
             }
