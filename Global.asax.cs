@@ -15,6 +15,7 @@ namespace SimpleEchoBot
         protected void Application_Start()
         {
             System.Diagnostics.Trace.TraceWarning("Slow response - database01");
+            System.Diagnostics.Trace.TraceWarning(System.Environment.GetEnvironmentVariable("CosmosDBKey"));
             var docdbServiceEndpoint = new Uri(System.Environment.GetEnvironmentVariable("CosmosDBURL"));
             var docdbKey = System.Environment.GetEnvironmentVariable("CosmosDBKey");
 
