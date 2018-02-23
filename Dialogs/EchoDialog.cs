@@ -310,6 +310,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
         public async Task AfterResetAsync(IDialogContext context, IAwaitable<bool> argument)
         {
+            System.Diagnostics.Trace.TraceInformation(">>>>> In AfterResetAsync");
             var confirm = await argument;
             if (confirm)
             {
@@ -333,6 +334,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
         public async Task AfterObsText(IDialogContext context, IAwaitable<string> argument)
         {
+            System.Diagnostics.Trace.TraceInformation(">>>>> Starting AfterObsText");
             var confirm = await argument;
             await context.PostAsync("Ok. Main Con POC.");
             context.Wait(MessageReceivedAsync);
