@@ -108,6 +108,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "PIC";
+                    blockBlob2.FetchAttributes();
                     //replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
                     {
@@ -124,11 +125,11 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }
             }
 
-            if (message.Text.ToLower() == "ML")
+            if (message.Text.ToLower() == "multitest")
             {
+                System.Diagnostics.Trace.TraceInformation("Try1"); 
                 try 
                 {
-                    System.Diagnostics.Trace.TraceInformation("Try1");                
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "Testing \n\n " + "Newline \n\n " + "and \n\n " + "multiline messages";
                     await context.PostAsync(replyMessage);
@@ -138,9 +139,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceError(e.Message);
                 }
 
+                System.Diagnostics.Trace.TraceInformation("Try2");                    
                 try 
                 {
-                    System.Diagnostics.Trace.TraceInformation("Try2");                    
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "Testing <br/> Newline";
                     await context.PostAsync(replyMessage);
