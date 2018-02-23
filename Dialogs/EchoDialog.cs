@@ -126,9 +126,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             if (message.Text.ToLower() == "ML")
             {
-                System.Diagnostics.Trace.TraceInformation("Try1");
                 try 
                 {
+                    System.Diagnostics.Trace.TraceInformation("Try1");                
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "Testing \n\n " + "Newline \n\n " + "and \n\n " + "multiline messages";
                     await context.PostAsync(replyMessage);
@@ -138,9 +138,9 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceError(e.message);
                 }
 
-                System.Diagnostics.Trace.TraceInformation("Try2");
                 try 
                 {
+                    System.Diagnostics.Trace.TraceInformation("Try2");                    
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "Testing <br/> Newline";
                     await context.PostAsync(replyMessage);
