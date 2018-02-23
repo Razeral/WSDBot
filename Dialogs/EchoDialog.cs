@@ -84,7 +84,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(blobRef);
                     var replyMessage = context.MakeMessage();
                     replyMessage.Text = "PIC";
-                    replyMessage.Attachments = new List<Attachment>();
+                    //replyMessage.Attachments = new List<Attachment>();
                     replyMessage.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
@@ -141,6 +141,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     System.Diagnostics.Trace.TraceInformation("replymessage - " + jsonxx);
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
+
+                    await Task.Delay(5000);
 
                     var replyMessage2 = context.MakeMessage();
                     replyMessage2.From = botAccount;
