@@ -137,6 +137,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Conversation = new ConversationAccount(id: conversationId);
                     replyMessage.Text = "Hello, this is a notification";
                     replyMessage.Locale = "en-us";
+                    string jsonxx = JsonConvert.SerializeObject(replyMessage, Formatting.Indented);
+                    System.Diagnostics.Trace.TraceInformation("replymessage - " + jsonxx);
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
@@ -154,10 +156,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                         ContentType = blockBlob2.Properties.ContentType,
                         Name = "before.jpg"
                     });
+
+                    var connector2 = new ConnectorClient(new Uri("https://telegram.botframework.com"));
+                    MicrosoftAppCredentials.TrustServiceUrl("https://telegram.botframework.com");
+
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 3");
                     string jsonx = JsonConvert.SerializeObject(replyMessage2, Formatting.Indented);
                     System.Diagnostics.Trace.TraceInformation("areplymessage2 - " + jsonx);
-                    await connector.Conversations.SendToConversationAsync((Activity)replyMessage2);
+                    await connector2.Conversations.SendToConversationAsync((Activity)replyMessage2);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 4");
                     //await context.PostAsync(replyMessage);
                 }
