@@ -112,7 +112,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
-                        //ContentType = message.Attachments[0].ContentType,
+                        ContentType = blockBlob2.Properties.ContentType,
                         //Name = "1.jpg"
                     });
                     await context.PostAsync(replyMessage);
@@ -166,7 +166,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     await connector.Conversations.SendToConversationAsync((Activity)replyMessage);
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 1");
 
-                    await Task.Delay(5000);
+                    await Task.Delay(1000);
 
                     var replyMessage2 = context.MakeMessage();
                     replyMessage2.From = botAccount;
@@ -174,14 +174,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     replyMessage2.Conversation = new ConversationAccount(id: conversationId);
                     
                     System.Diagnostics.Trace.TraceInformation("[In attachment path] - Msg 2 - 2");
-                    replyMessage2.Text = "Observation 1284";
+                    replyMessage2.Text = "Observation 1284 - " + blockBlob2.Uri.AbsoluteUri;
                     replyMessage2.Attachments = new List<Attachment>();
-                    replyMessage2.Attachments.Add(new Attachment()
+                    /*replyMessage2.Attachments.Add(new Attachment()
                     {
                         ContentUrl = blockBlob2.Uri.AbsoluteUri,
                         ContentType = blockBlob2.Properties.ContentType,
                         Name = "before.jpg"
-                    });
+                    });*/
 
                     var connector2 = new ConnectorClient(new Uri("https://telegram.botframework.com"));
                     MicrosoftAppCredentials.TrustServiceUrl("https://telegram.botframework.com");
