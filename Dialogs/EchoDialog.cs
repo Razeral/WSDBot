@@ -126,9 +126,31 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             if (message.Text.ToLower() == "ML")
             {
-                var replyMessage = context.MakeMessage();
-                replyMessage.Text = "Testing \n\n Newline \n\n and \n\n multiline messages";
-                await context.PostAsync(replyMessage);
+                System.Diagnostics.Trace.TraceInformation("Try1");
+                try 
+                {
+                    var replyMessage = context.MakeMessage();
+                    replyMessage.Text = "Testing \n\n " + "Newline \n\n " + "and \n\n " + "multiline messages";
+                    await context.PostAsync(replyMessage);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.TraceError(e.message);
+                }
+
+                System.Diagnostics.Trace.TraceInformation("Try2");
+                try 
+                {
+                    var replyMessage = context.MakeMessage();
+                    replyMessage.Text = "Testing <br/> Newline";
+                    await context.PostAsync(replyMessage);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.TraceError(e.message);
+                }
+                System.Diagnostics.Trace.TraceInformation("EndTry");
+                
             }
 
             if (message.Text.ToLower() == "ping")
