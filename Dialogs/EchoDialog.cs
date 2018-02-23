@@ -336,7 +336,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             System.Diagnostics.Trace.TraceInformation(">>>>> Starting AfterObsText");
             var confirm = await argument;
-            await context.PostAsync("Ok. Main Con POC.");
+            await context.PostAsync("Ok. Notifying Main Con POC.");
             context.Wait(MessageReceivedAsync);
         }
 
