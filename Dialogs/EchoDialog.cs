@@ -18,6 +18,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
     public class EchoDialog : IDialog<object>
     {
         protected int count = 1;
+        protected bool fixCheck = false; 
 
         public async Task StartAsync(IDialogContext context)
         {
@@ -45,6 +46,35 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
 
             if (message.Attachments.Count > 0)
             {
+                // CHECK IF MESSAGE IS IN RESPONSE TO ASSIGNMENT
+                if( message.channelId == "telegram" &&
+                    message.conversationId == "454115979")
+                {
+                    //if(!fixCheck)
+                    //{
+                        PromptDialog.Confirm(
+                            context,
+                            AfterResetAsync,
+                            "Is this a fix for an observation?",
+                            "Didn't get that!",
+                            promptStyle: PromptStyle.Auto);
+                    //}
+                }
+                /*var userAccount = new ChannelAccount("454115979", "Razeral");
+                    
+                    var connector = new ConnectorClient(new Uri("https://telegram.botframework.com"));
+                    MicrosoftAppCredentials.TrustServiceUrl("https://telegram.botframework.com");
+
+                    var botAccount = new ChannelAccount("WSDBot1_bot", "WSDBot");
+                    var conversationId = "454115979";
+                    var channelId = "telegram";
+                 
+
+                
+
+                */
+
+
                 System.Diagnostics.Trace.TraceInformation("[In attachment path]");
 
                 //var blobRef = message.Conversation.Id + "/" + message.Timestamp.Value.ToUnixTimeSeconds().ToString();
@@ -154,6 +184,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 
             }
 
+            //Default "assign" to SR 
             if (message.Text.ToLower() == "ping")
             {
                 try
@@ -278,13 +309,28 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             var confirm = await argument;
             if (confirm)
             {
-                this.count = 1;
-                await context.PostAsync("Reset count.");
+                //this.count = 1;
+                //await context.PostAsync("Reset count.");
+                this.fixCheck = true;
+                PromptDialog.Text(
+                    context,
+                    AfterObsText,
+                    "Which observation did you fix?",
+                    "Didn't get that!",
+                    //promptStyle: PromptStyle.Auto);
+                );
             }
             else
             {
-                await context.PostAsync("Did not reset count.");
+                await context.PostAsync("Not yet implemented.");
+                context.Wait(MessageReceivedAsync);
             }
+        }
+
+        public async Task AfterObsText(IDialogContext context, IAwaitable<string> argument)
+        {
+            var confirm = await argument;
+            await context.PostAsync("Ok. Main Con POC.");
             context.Wait(MessageReceivedAsync);
         }
 
