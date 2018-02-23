@@ -54,12 +54,14 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 {
                     //if(!fixCheck)
                     //{
+                        System.Diagnostics.Trace.TraceInformation(">>>>> Starting Prompt");
                         PromptDialog.Confirm(
                             context,
                             AfterResetAsync,
                             "Is this a fix for an observation?",
                             "Didn't get that!",
                             promptStyle: PromptStyle.Auto);
+                        return;
                     //}
                 }
                 /*var userAccount = new ChannelAccount("454115979", "Razeral");
