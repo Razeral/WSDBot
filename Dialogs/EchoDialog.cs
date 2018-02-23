@@ -47,8 +47,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             if (message.Attachments.Count > 0)
             {
                 // CHECK IF MESSAGE IS IN RESPONSE TO ASSIGNMENT
-                System.Diagnostics.Trace.TraceInformation(">>>>> CHANNEL ID - " + message.ChannelId);
-                System.Diagnostics.Trace.TraceInformation(">>>>> CONVERSATION ID - " + message.Conversation.Id);
+                System.Diagnostics.Trace.TraceInformation(">>>>> CHANNEL ID - " + message.ChannelId + " || " + (message.ChannelId == "telegram").ToString());
+                System.Diagnostics.Trace.TraceInformation(">>>>> CONVERSATION ID - " + message.Conversation.Id + " || " + (message.Conversation.Id == "454115979").ToString());
                 if( message.ChannelId == "telegram" &&
                     message.Conversation.Id == "454115979")
                 {
