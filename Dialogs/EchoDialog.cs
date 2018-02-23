@@ -47,8 +47,8 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             if (message.Attachments.Count > 0)
             {
                 // CHECK IF MESSAGE IS IN RESPONSE TO ASSIGNMENT
-                if( message.channelId == "telegram" &&
-                    message.conversationId == "454115979")
+                if( message.ChannelId == "telegram" &&
+                    message.Conversation.Id == "454115979")
                 {
                     //if(!fixCheck)
                     //{
