@@ -135,7 +135,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Trace.TraceError(e.message);
+                    System.Diagnostics.Trace.TraceError(e.Message);
                 }
 
                 try 
@@ -147,7 +147,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Trace.TraceError(e.message);
+                    System.Diagnostics.Trace.TraceError(e.Message);
                 }
                 System.Diagnostics.Trace.TraceInformation("EndTry");
                 
