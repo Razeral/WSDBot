@@ -100,6 +100,30 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }*/
             }
 
+            if (message.Text.ToLower() == "latest")
+            {
+                try
+                {
+                    // Section for echoing back attachment
+                    CloudBlockBlob blockBlob2 = container.GetBlockBlobReference("obs/newest.jpg");
+                    var replyMessage = context.MakeMessage();
+                    replyMessage.Text = "PIC";
+                    //replyMessage.Attachments = new List<Attachment>();
+                    replyMessage.Attachments.Add(new Attachment()
+                    {
+                        ContentUrl = blockBlob2.Uri.AbsoluteUri,
+                        //ContentType = message.Attachments[0].ContentType,
+                        //Name = "1.jpg"
+                    });
+                    await context.PostAsync(replyMessage);
+                    System.Diagnostics.Trace.TraceInformation("[Exiting Attachment Pathxx]");
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Trace.TraceError(e.Message);
+                }
+            }
+
             if (message.Text.ToLower() == "ping")
             {
                 try
