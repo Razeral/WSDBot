@@ -316,7 +316,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                     context,
                     AfterObsText,
                     "Which observation did you fix?",
-                    "Didn't get that!",
+                    "Didn't get that!"
                     //promptStyle: PromptStyle.Auto);
                 );
             }
