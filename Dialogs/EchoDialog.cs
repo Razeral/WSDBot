@@ -124,6 +124,13 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 }
             }
 
+            if (message.Text.ToLower() == "ML")
+            {
+                var replyMessage = context.MakeMessage();
+                replyMessage.Text = "Testing \n\n Newline \n\n and \n\n multiline messages";
+                await context.PostAsync(replyMessage);
+            }
+
             if (message.Text.ToLower() == "ping")
             {
                 try
