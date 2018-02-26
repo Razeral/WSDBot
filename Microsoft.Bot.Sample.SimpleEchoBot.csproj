@@ -172,6 +172,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Sender.htm" />
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
