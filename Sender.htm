@@ -20,12 +20,27 @@
         <div class="container-fluid">
             <div class="jumbotron">
                 <h1>Submit Observations</h1>
-            </div> 
-            <div class="row">
+            </div>
+            <div id="headerRow" class="row">
                 <div class="col">
-                    <div id="imageUploadBorder">
-                        test
-                    </div>
+                    Image
+                </div>
+                <div class="col">
+                    Category
+                </div>
+                <div class="col">
+                    Location
+                </div>
+                <div class="col">
+                    Comments
+                </div>
+                <div class="col">
+                </div>
+            </div>
+            <div id="row1" class="row">
+                <div class="col">
+                    <input type="file" id="imgInp"/>
+                    <img id="img-upload" />
                 </div>
                 <div class="col">
                     <div class="radio">
@@ -34,13 +49,12 @@
                     <div class="radio">
                         <label><input type="radio" name="optradio"> Unsafe Condition</label>
                     </div>
-                    <div class="radio disabled">
-                        <label><input type="radio" name="optradio" disabled> Good Practices</label>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio"> Good Practices</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="sel1">Location</label>
                         <select class="form-control" id="sel1">
                             <option>1</option>
                             <option>2</option>
@@ -52,15 +66,20 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="comment"></textarea>
                     </div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-info">Add more</button>
+                    <button id="AddMore" type="button" class=" AddMore btn btn-info">Add another</button>
                 </div>
             </div>
 
+
+            <div id="send" class="row">
+                <div class="col">
+                    <button type="button" class="btn">Confirm Send</button>
+                </div>
+            </div>
         </div>
     </form>
 
@@ -69,5 +88,72 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <script>
+        var rowCount = 1;
+
+        $(document).ready(function () {
+            
+            var AddButton = $(".AddMore");
+            
+            //var x = InputsWrapper.length;
+            //var FieldCount = 1;
+            $(document).on('click', '.AddMore', function (e)//on add input button click
+            {
+                var AddButton = $(".AddMore");
+                var row = $("#row" + rowCount);
+                //alert(rowCount);
+                //alert("HI");
+                $(row).add('<div id="row' + ++rowCount + '" class="row"><div class="col"><input type="file" id="imgInp"/><img id="img-upload" /></div > <div class="col"><div class="radio"><label><input type="radio" name="optradio"> Unsafe Act</label></div> ' +
+                    '<div class="radio"><label><input type="radio" name="optradio"> Unsafe Condition</label></div><div class="radio"><label><input type="radio" name="optradio"> Good Practices</label>' +
+                    '</div></div><div class="col"><div class="form-group"><select class="form-control" id="sel1"><option>1</option><option>2</option><option>3</option>' +
+                    '<option>4</option></select></div></div><div class="col"><div class="form-group"><textarea class="form-control" rows="5" id="comment"></textarea>' +
+                    '</div></div><div class="col"><button id="AddMore" type="button" class="AddMore btn btn-info">Add another</button></div></div>').insertAfter(row);
+                /*FieldCount++;
+                $(InputsWrapper).append('<tr><td><input id="find" type="text" name="item[]"></td><td><input id="find" type="number" name="qty[]"></td><td><input id="find" type="number" name="price[]"></td><td><input id="find" type="number" name="discount[]"></td><td> <?php $query = mysqli_query($con, "SELECT * FROM `tax_vat` "); echo ' < select name= "vat" id= "find" data- required="true" > <option value="">Select Vat</option>"';while ($row = mysqli_fetch_array($query)) {echo '<option value="' . $row['vat_rate'] . '">' . $row['vat_description'] . '</option></br>';}echo '</select>';?></td><td><input id="find" type="number" name="total[]" readonly ></td></tr>');
+                x++;*/
+
+                return false;
+            });
+
+        });
+
+        $(document).ready(function () {
+            $(document).on('change', '.btn-file :file', function () {
+                var input = $(this),
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+            });
+
+            $('.btn-file :file').on('fileselect', function (event, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) alert(log);
+                }
+            });
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#img-upload').attr('src', e.target.result).attr('width', '100%');
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function () {
+                readURL(this);
+            });
+        });
+
+    </script>
 </body>
 </html>
