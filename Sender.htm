@@ -39,7 +39,7 @@
             </div>
             <div id="row1" class="row">
                 <div class="col">
-                    <input type="file" id="imgInp"/>
+                    <input type="file" id="imgInp" accept="image/*"/>
                     <img id="img-upload" />
                 </div>
                 <div class="col">
@@ -77,7 +77,7 @@
 
             <div id="send" class="row">
                 <div class="col">
-                    <button type="button" class="btn">Confirm Send</button>
+                    <button type="submit" class="btn">Confirm Send</button>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                 var row = $("#row" + rowCount);
                 //alert(rowCount);
                 //alert("HI");
-                $(row).add('<div id="row' + ++rowCount + '" class="row"><div class="col"><input type="file" id="imgInp"/><img id="img-upload" /></div > <div class="col"><div class="radio"><label><input type="radio" name="optradio"> Unsafe Act</label></div> ' +
+                $(row).add('<div id="row' + ++rowCount + '" class="row"><div class="col"><input type="file" id="imgInp" accept="image/*"/><img id="img-upload" /></div > <div class="col"><div class="radio"><label><input type="radio" name="optradio"> Unsafe Act</label></div> ' +
                     '<div class="radio"><label><input type="radio" name="optradio"> Unsafe Condition</label></div><div class="radio"><label><input type="radio" name="optradio"> Good Practices</label>' +
                     '</div></div><div class="col"><div class="form-group"><select class="form-control" id="sel1"><option>1</option><option>2</option><option>3</option>' +
                     '<option>4</option></select></div></div><div class="col"><div class="form-group"><textarea class="form-control" rows="5" id="comment"></textarea>' +
