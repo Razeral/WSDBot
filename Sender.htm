@@ -39,7 +39,7 @@
             </div>
             <div id="row1" class="row">
                 <div class="col">
-                    <input type="file" id="imgInp" accept="image/*"/>
+                    <input type="file" id="imgInp" accept="image/*" />
                     <img id="img-upload" />
                 </div>
                 <div class="col">
@@ -77,11 +77,41 @@
 
             <div id="send" class="row">
                 <div class="col">
-                    <button type="submit" class="btn">Confirm Send</button>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#myModal">Confirm Send</button>
                 </div>
             </div>
         </div>
     </form>
+
+    <!-- Button to Open the Modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open modal
+    </button>-->
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Thank you for your submission</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Someone will address these issues promptly.
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="refreshButton" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,9 +124,9 @@
         var rowCount = 1;
 
         $(document).ready(function () {
-            
+
             var AddButton = $(".AddMore");
-            
+
             //var x = InputsWrapper.length;
             //var FieldCount = 1;
             $(document).on('click', '.AddMore', function (e)//on add input button click
@@ -151,6 +181,12 @@
 
             $("#imgInp").change(function () {
                 readURL(this);
+            });
+        });
+
+        $(document).ready(function () {
+            $("#refreshButton").on("click", function (e) {
+                window.location.reload();
             });
         });
 
