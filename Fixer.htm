@@ -13,17 +13,21 @@
         #imageUploadBorder { border:dotted 1px black;}
     </style>
 
-    <title>Submit Observations</title>
+    <title>Outstanding Observations</title>
 </head>
 <body>
     <form action="">
         <div class="container-fluid">
             <div class="jumbotron">
-                <h1>Submit Observations</h1>
+                <h1>Outstanding Observations</h1>
+                <h2>Subcon ABC</h2>
             </div>
             <div id="headerRow" class="row">
                 <div class="col">
                     Image
+                </div>
+                <div class="col">
+                    Rectification
                 </div>
                 <div class="col">
                     Category
@@ -32,13 +36,20 @@
                     Location
                 </div>
                 <div class="col">
-                    Comments
+                    Assigner Comments
                 </div>
-                <div class="col-1">
+                <div class="col">
+                    Fixer Comments
                 </div>
             </div>
             <hr />
             <div id="row1" class="row">
+                <div class="col">
+                    <label id="fix1lbl" for="fix1btn" style="width:20%">
+                        <img id="fix1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh1.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080" />
+                    </label>
+                    <button id="fix1btn" type="button" class="btn" data-toggle="modal" data-target="#zoomModal" style="display:none">1</button>
+                </div>
                 <div class="col">
                     <label id="o1i1lbl" for="o1i1" style="width:20%">
                         <img id="o1i1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080" />
@@ -60,40 +71,77 @@
                         <img id="o1i5img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080;" />
                     </label>
                     <input id="o1i5" type="file" style="display:none" />
-                    <img id="img-upload" />
-                    <!--<input type="file" id="imgInp" accept="image/*" />
-    <img id="img-upload" />
-        -->
                 </div>
+
                 <div class="col">
-                    <div class="radio">
-                        <label><input type="radio" name="optradio"> Unsafe Act</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="optradio"> Unsafe Condition</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="optradio"> Good Practices</label>
-                    </div>
+                    Unsafe Act
+                </div>
+
+                <div class="col">
+                    Food Hub - Zone 3
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <select class="form-control" id="sel1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
+                        Please fix this ASAP.
                     </div>
-
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <textarea class="form-control" rows="5" id="comment"></textarea>
                     </div>
                 </div>
-                <div class="col-1">
-                    <button id="AddMore" type="button" class=" AddMore btn btn-info">Add more</button>
+            </div>
+            <hr/>
+            <div id="row1" class="row">
+                <div class="col">
+                    <label id="fix2lbl" for="fix2btn" style="width:20%">
+                        <img id="fix2img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh2.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080" />
+                    </label>
+                    <button id="fix2btn" type="button" class="btn" data-toggle="modal" data-target="#zoomModal2" style="display:none">1</button>
+                    <label id="fix3lbl" for="fix3btn" style="width:20%">
+                        <img id="fix3img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh3.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080" />
+                    </label>
+                    <button id="fix3btn" type="button" class="btn" data-toggle="modal" data-target="#zoomModal3" style="display:none">1</button>
+                </div>
+                <div class="col">
+                    <label id="o1i1lbl" for="o1i1" style="width:20%">
+                        <img id="o1i1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080" />
+                    </label>
+                    <input id="o1i1" type="file" style="display:none" />
+                    <label id="o1i2lbl" for="o1i2" style="width:20%; visibility:hidden">
+                        <img id="o1i2img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080;" />
+                    </label>
+                    <input id="o1i2" type="file" style="display:none" />
+                    <label id="o1i3lbl" for="o1i3" style="width:20%; visibility:hidden">
+                        <img id="o1i3img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080;" />
+                    </label>
+                    <input id="o1i3" type="file" style="display:none" />
+                    <label id="o1i4lbl" for="o1i4" style="width:20%; visibility:hidden">
+                        <img id="o1i4img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080;" />
+                    </label>
+                    <input id="o1i4" type="file" style="display:none" />
+                    <label id="o1i5lbl" for="o1i5" style="width:20%; visibility:hidden">
+                        <img id="o1i5img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/upload-image-thumb.jpg" width="100%" style="outline-style: dashed; outline-width:thin; outline-color:#808080;" />
+                    </label>
+                    <input id="o1i5" type="file" style="display:none" />
+                </div>
+
+                <div class="col">
+                    Unsafe Act
+                </div>
+
+                <div class="col">
+                    Food Hub - Zone 3
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        Please fix this ASAP.
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -110,6 +158,37 @@
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
         Open modal
     </button>-->
+    <!-- Zoom Modal -->
+    <div class="modal fade" id="zoomModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <img id="fix1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh1.jpg" width="100%" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="zoomModal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <img id="fix1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh2.jpg" width="100%" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="zoomModal3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <img id="fix1img" src="https://wsdbot87ce.blob.core.windows.net/wsdbotimages/site/wsh3.jpg" width="100%" />
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
